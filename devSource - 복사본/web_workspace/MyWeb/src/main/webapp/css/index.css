@@ -1,0 +1,26 @@
+@charset "UTF-8";
+body {
+	font-family: sans-serif;
+	text-align: center;
+	
+}
+
+h1{
+	color: blue;
+}
+
+p{
+	width: 80%;
+	margin: auto;/*바깥 여백*/
+	height: 400px;
+	background-color: beige;
+	padding: 1em; /* 안쪽 여백*/
+}
+
+/*today, today2 글자색 다르게 */
+.today{
+	color: red;
+}
+.today2{
+	color: green;
+}
