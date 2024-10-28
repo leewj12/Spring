@@ -90,7 +90,7 @@
 						<span class = "mstate${user.mstate }">${user.mstateStr }</span>
 						<br><br>
 						<label for = "mstate1">
-							<input type = "radio" name = "mstate" 
+							<input type = "radio" name = "mstate" value = "1"
 								<c:if test = "${user.mstate == 1}">
 									checked
 								</c:if>
@@ -98,7 +98,7 @@
 							활동 회원
 						</label>
 						<label for = "mstate2">
-							<input type = "radio" name = "mstate" 
+							<input type = "radio" name = "mstate" value ="0"
 								<c:if test = "${user.mstate == 0}">
 									checked
 								</c:if>
@@ -106,7 +106,7 @@
 							정지 회원
 						</label>
 						<label for = "mstate3">
-							<input type = "radio" name = "mstate" 
+							<input type = "radio" name = "mstate" value ="-1"
 								<c:if test = "${user.mstate == -1}">
 									checked
 								</c:if>
@@ -114,7 +114,7 @@
 							탈퇴 회원
 						</label>
 						<label for = "mstate4">
-							<input type = "radio" name = "mstate" 
+							<input type = "radio" name = "mstate" value ="9"
 								<c:if test = "${user.mstate == 9}">
 									checked
 								</c:if>

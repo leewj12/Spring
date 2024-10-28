@@ -34,7 +34,12 @@
     
 <div class = "container">
 	<h1>회원 목록 [관리자 페이지 - Admin]</h1>
-	${members}<%-- ArrList객체 --%>
+	<%-- ${members} --%><%-- ArrList객체 --%>
+	<div style = "text-align: center">
+		<a href = "/">Home</a>
+		<a href = "/signup.do">회원가입</a>
+	</div>
+	<br>
 	
 	<table id = "members">
 		<thead>

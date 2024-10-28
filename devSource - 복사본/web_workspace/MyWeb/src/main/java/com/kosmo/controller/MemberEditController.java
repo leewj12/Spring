@@ -40,8 +40,35 @@ public class MemberEditController extends HttpServlet {
 		disp.forward(req, res);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("utf-8");
 		
+		String idx = req.getParameter("idx");
+		String name = req.getParameter("name");
+		String userId = req.getParameter("userId");
+		String email = req.getParameter("email");
+		String mstate = req.getParameter("mstate");
+		
+		if(idx.trim().isBlank() || name.trim().isBlank() || userId.trim().isBlank()) {
+			res.sendRedirect("memberList.do");
+			return;
+		}
+		int idx_int = Integer.parseInt(idx.trim());
+		int mstate_int = Integer.parseInt(mstate.trim());
+		
+		MemberDTO user = new MemberDTO(idx_int, name, userId, null,email,  mstate_int, null);
+		MemberDAO dao = new MemberDAO();
+		
+		int n = dao.update(user);
+		
+		String msg = (n > 0) ? "회원정보 수정 성공" : "회원정보 수정 실패";
+		String loc = (n > 0) ? "memberList.do" : "davascript:history.back()";
+		
+		req.setAttribute("msg", msg);
+		req.setAttribute("loc", loc);
+		
+		RequestDispatcher disp = req.getRequestDispatcher("message.jsp");
+		disp.forward(req, res);
 	}
 
 }

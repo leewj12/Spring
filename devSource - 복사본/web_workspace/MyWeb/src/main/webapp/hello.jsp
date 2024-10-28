@@ -10,7 +10,7 @@
 </head>
 <body>
 <h1>HELLO JSP</h1>
-<h2>JSP- Java Server Page의 약자, 동적인 처리를 담당합니다</h2>
+<h2>JSP- Java Server Page의 약자, 동적인 처리를 담당합니다[${loginUser.userId }]님 로그인 중...</h2>
 <hr>
 <p>
 <% //자바코드는 scriptlet 태그 안에서 작성 %%

@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kosmo.exception.NoMemberException;
 import com.kosmo.util.DBUtil;
 
 public class MemberDAO {
@@ -162,6 +163,81 @@ public class MemberDAO {
 		} finally {
 			DBUtil.close(con, ps, rs);
 		}
+		
+	}
+	
+	public int update(MemberDTO user) {
+		try {
+			con = DBUtil.getConnection();
+			String sql = "update member set name = ?, userId = ?, email = ?, mstate = ? where idx = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, user.getName());
+			ps.setString(2, user.getUserId());
+			ps.setString(3, user.getEmail());
+			ps.setInt(4, user.getMstate());
+			ps.setInt(5, user.getIdx());
+			int n = ps.executeUpdate();
+			return n;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+			
+		} finally {
+			DBUtil.close(con, ps);
+			
+		}
+	}
+
+	/*userId로 모든 회원정보를 가져오는 메서드 => select문*/
+	public MemberDTO findByUserId(String userId) {
+		try {
+			con = DBUtil.getConnection();
+			String sql = "select * from member where userId = ?";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userId);
+			rs = ps.executeQuery();
+			
+			List <MemberDTO> arrList = makeList(rs);
+			if(arrList == null | arrList.size() == 0) {// userId가 없는 경우
+				return null;
+			}
+			//userId ==> unique 제약조건, 있다면 1명
+			MemberDTO user = arrList.get(0);
+			return user;
+			/* return arrList.get(0); */
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+			
+		} finally {
+			DBUtil.close(con, ps, rs);
+		}
+	}
+	
+	public MemberDTO loginCheck(MemberDTO tmpDTO) throws NoMemberException{
+		
+		MemberDTO dbUser = findByUserId(tmpDTO.getUserId());
+		if (dbUser == null) {
+			//아이디가 없는 경우 ==> 사용자정의 예외를 발생시키자
+			throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않아요");
+			
+		}
+		
+		
+		// 아이디가 있는 경우
+		//==> 비밀번호 일치 여부 체크
+		if(!dbUser.getUserPw().equals(tmpDTO.getUserPw())) {
+			//일치하지 않는 경우
+			throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않아요");
+		}
+		//탈퇴회원인 경우
+		if (dbUser.getMstate() < 0) {
+			throw new NoMemberException("회원이 아닙니다. 회원 가입 하세요");
+		}
+		//회원인 경우
+		return dbUser;
 		
 	}
 	
