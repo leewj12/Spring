@@ -25,4 +25,11 @@ public class HomeController {
 
         return "test";
     }
+    //뷰네임을 반환하지 않으면 @RequestMapping/@GetMapping ...
+    //url에 접두어, 접미어를 붙여 이동
+    //WEB-INF/views/main.jsp를 찾는다
+    @GetMapping("/main")
+    public void main(){
+
+    }
 }

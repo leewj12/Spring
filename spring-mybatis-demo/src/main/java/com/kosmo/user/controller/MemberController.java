@@ -6,8 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 //@Autowired, @Inject, @Resource ==> DI 할때 사용하는 어노테이션
 //@Inject, @Resource ==> 추가 라이브러리가 필요함. build.gradle에 등록해야 함
 //DI 종류
@@ -44,12 +45,100 @@ public class MemberController {
         }
         //서비스 객체의 메서드를 호출
         int n = userService.insertMember(user);
-        String msg = (n > 0) ? "회원가입 성공" : "회원가입 실패";
-        String loc = (n > 0) ? "memberList" : "javascript:history.back()";
+        String msg = (n > 0) ? "회원가입 성공 - 로그인 페이지로 이동합니다" : "회원가입 실패";
+        String loc = (n > 0) ? "/login" : "javascript:history.back()";
         model.addAttribute("msg", msg);
         model.addAttribute("loc", loc);
 
         return "message";
         //"WEB-INF/views/message.jsp"
     }//-----------------------
+
+    @RequestMapping("/admin/users")
+    public String memberList(Model model){
+        List<MemberDTO> arrList = userService.listMember();
+        model.addAttribute("members", arrList);
+
+        return "member/memberAll";
+    }//----------------------------------------
+    @RequestMapping(value = "/admin/memberInfo", method = RequestMethod.POST)
+    public String memberInfo(Model model, @RequestParam(defaultValue = "0") int idx){// -parameters
+        log.info("idx: {}", idx);
+        if (idx == 0){
+            return "redirect:users";
+        }
+        //idx(PK) ==> 단일 객체를 반환
+        MemberDTO user = userService.findMemberByIdx(idx);
+        model.addAttribute("user", user);
+
+        return "member/memberInfo";
+    }
+
+    @PostMapping("/admin/memberUpdate")
+    public String memberUpdate(MemberDTO user, Model model){
+        log.info("user = {}", user);
+        if (user.getIdx() == 0 || user.getName().trim().isBlank()
+                || user.getUserId().trim().isBlank()){
+            return "redirect:users";
+        }
+        int n = userService.updateMember(user);
+        String msg = (n > 0) ? "수정 성공" : "수정 실패";
+        String loc = (n > 0) ? "users" : "javascript:history.back()";
+
+        model.addAttribute("msg", msg);
+        model.addAttribute("loc", loc);
+        return "message";
+    }//-----------------------------------
+
+//    @PostMapping("/admin/memberDelete")
+//    public String memberDelete(MemberDTO user, Model model){
+//        log.info("user = {}", user);
+//        if (user.getIdx() == 0){
+//            return "redirect:users";
+//        }
+//        int n = userService.deleteMemberByIdx(user.getIdx());
+//        String msg = (n > 0) ? "삭제 성공" : "삭제 실패";
+//        String loc = (n > 0) ? "users" : "javascript:history.back()";
+//
+//        model.addAttribute("msg", msg);
+//        model.addAttribute("loc", loc);
+//        return "message";
+//    }
+    @PostMapping("/admin/memberDelete")
+    public String memberDelete(Model model, @RequestParam(defaultValue = "0") int idx){
+        log.info("idx: {}", idx);
+        if (idx == 0){
+            return "redirect:user";
+        }
+        int n = userService.deleteMemberByIdx(idx);
+        String msg = (n > 0) ? "삭제 성공": "삭제 실패";
+        String loc = "/admin/users";
+        model.addAttribute("msg", msg);
+        model.addAttribute("loc", loc);
+        return "message";
+    }
+
+    @GetMapping("idCheck")
+    public String idCheck(){
+        return "member/idCheck";
+    }
+
+    @PostMapping("/idCheck")
+    public String idCheckResult(Model model, @RequestParam(defaultValue = "")
+                                    String  userId){
+
+        if (userId.trim().isBlank()){
+            model.addAttribute("msg", "아이디를 입력하세요");
+            model.addAttribute("loc", "javascript:history.back()");
+            return "message";
+        }
+        boolean isUse = userService.idCheck(userId.trim());
+        String msg = (isUse) ? userId + "는 사용 가능합니다" : userId + "는 이미 사용중 입니다";
+        String result = (isUse) ? "Ok" : "Fail";
+        model.addAttribute("msg", msg);
+        model.addAttribute("result", result);
+        model.addAttribute("userId", userId);
+        return "member/idCheckResult";
+    }
+
 }//class----------------
