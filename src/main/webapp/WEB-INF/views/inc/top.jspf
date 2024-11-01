@@ -1,0 +1,41 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Kosmo</title>
+    <link rel = "stylesheet" type = "text/css" href = "/css/style.css">
+</head>
+<body>
+    <div class = "header">
+        <div class = "title">
+            <h1>Kosmo Shop</h1>
+            <p>Have a good time!</p>
+        </div>
+        <div class = "navi">
+            <ul class = "menu">
+                <li><a href = "/">Home</a></li>
+            <c:if test = "${loginUser == null}">
+                <li><a href = "/signup">SignUp</a></li>
+            </c:if>
+                <li><a href = "/admin/users">Users</a></li>
+
+            <c:if test = "${loginUser == null}">
+                <li><a href = "/login">LogIn</a></li>
+            </c:if>
+            <c:if test = "${loginUser != null}">
+                <li><a style = "background: #e6f2ff; color: tomato" href = "#">
+                    ${loginUser.userId}님이 로그인 중</a></li>
+                <li><a href = "/logout">LogOut</a></li>
+            </c:if>
+
+                <li><a href = "/board/form">Board Form</a></li>
+                <li><a href = "/board/list">Board List</a></li>
+                <li><a href = "/user/cart">Cart</a></li>
+                <li><a href = "/user/mypage">MyPage</a></li>
+            </ul>
+        </div><!-- .navi end -->
+    </div><!-- .header end -->
+    <!-- header ------------>
+    <div class = "container" style = "min-height: 65vh">

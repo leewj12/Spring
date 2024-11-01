@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id = "mb1"
+          class = "com.kosmo.spring_mybatis_demo.basic.ioc.ex01.MessageBeanImpl">
+    </bean>
+    <!--
+        MessageBeanImpl mb1 = new MessageBeanImpl()과 동일
+      -->
+    <bean id = "mb2"
+          class = "com.kosmo.spring_mybatis_demo.basic.ioc.ex01.MessageBeanImpl">
+        <property name = "greeting">
+            <value>환절기 감기 조심하세요~</value>
+        </property>
+        <!--
+        MessageBeanImpl mb2 = new MessageBeanImpl()과 동일
+        mb2.setGreeting("환절기 감기 조심하세요~");
+            -->
+        <property name = "name" value = "홍길동"/>
+        <!--    mb2.setName("홍길동");    -->
+        <property name="today">
+            <ref bean="date"></ref>
+        </property>
+        <!--    mb2.setToday(date);    -->
+        <property name="random" ref="ran"/>
+        <!--    mb2.setRandom(ran);    -->
+    </bean>
+
+    <bean id="date" class="java.util.Date"/>
+    <!--  Date date = new Date()와 동일  -->
+
+    <bean id = "ran" class="java.util.Random"/>
+
+</beans>
