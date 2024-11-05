@@ -1,0 +1,306 @@
+@charset "utf-8";
+body{
+    font-family: sans-serif;
+    color:#333333;
+    line-height:1.6;
+}
+/* header 영역 ----------*/
+.header{
+    background-color:#2c3e50;
+    color:#fff;
+    padding:20px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    height:15vh;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /*그림자*/
+}
+.header .title  h1{
+    font-size:1.9em;
+    margin:1px;
+}
+.header .title p{
+    font-size:0.8em;
+    color:#d9e6f2;
+    margin:0;
+}
+.header .navi ul{
+    list-style:none;
+    display:flex;
+    gap: 20px; /*메뉴간격*/
+    padding:0;
+    margin:0;
+}
+.header .navi ul li{
+    position:relative;
+}
+.header .navi ul li a{
+    color:#fff;
+    text-decoration:none;
+    font-size:1em;
+    padding: 10px 15px;
+
+}
+.header .navi ul li a:hover{
+    color:#0073e6;
+    background-color: #e6f2ff;
+    border-radius : 5px;
+    transition: color 0.3s, background-color:0.3s; /*부드러운 전환 효과*/
+}
+/*본문 .container --------------*/
+.container{
+    max-width: 1200px;/*최대 넓이 지정. 너무 넓어지지 않게*/
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-height:65vh;
+}
+a:link{
+    text-decoration:none;
+}
+.wrap{
+    text-align:center;
+    padding: 20px 0;
+}
+/* footer -------------------*/
+.footer{
+    background-color: #c0c9d1;
+    color:#222;
+    padding:20px;
+    text-align:center;
+    line-height:1.6;
+    border-top:3px solid #ddd;
+    font-size:0.8em;
+    height:10vh;
+    margin-bottom:0;
+}
+
+.login-wrap{
+    width:100%;
+    max-width:400px;
+    margin:100px auto;
+    padding:20px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+.login-wrap h2{
+    text-align:center;
+    margin-bottom:1em;
+}
+.login-wrap table tr>td:nth-child(1){
+    width:20%;
+    padding:5px;
+}
+.login-wrap table tr>td:nth-child(2){
+    width:80%;
+    padding:5px;
+}
+.login-wrap input[type="text"],.login-wrap input[type="password"]{
+    width:100%;
+    padding:8px;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+.login-wrap button{
+    padding:8px;
+    background-color:#4caf50;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:1em;
+    width:100px;
+}
+/* board관련 스타일 --------------------- */
+.boardWrap{
+    width:70%;
+    margin:auto;
+}
+.boardWrap h1{
+    text-align:center;
+}
+.boardWrap .boardUl{
+    width:100%;
+    margin:0;
+    padding:0;
+
+}
+.boardUl li{
+    list-style:none;
+    float:left;
+    margin:5px 0;
+}
+.clear{
+    clear:both; /*float속성 해제*/
+}
+.boardUl li:nth-child(2n+1){
+    width:20%;
+    text-align:center;
+}
+.boardUl li:nth-child(2n){
+    width:80%;
+}
+.boardUl li input{
+    padding: 5px;
+    width:98%;
+    border:1px solid #aaa;
+}
+.boardUl textarea{
+    width:100%;
+    height:400px;
+    padding:5px;
+    border:1px solid #aaa;
+}
+.divBtn{
+    width:100%;
+    margin:auto;
+    text-align:center;
+    padding: 5px;
+}
+
+ul.boardList{
+    width:90%;
+    margin:auto;
+}
+ul.boardList li{
+    list-style:none;
+    border-bottom: 1px solid #ddd;
+    float:left;
+    height:35px;
+    line-height:35px;
+}
+ul.boardList li:nth-child(5n+1){
+    width:10%;
+}
+ul.boardList li:nth-child(5n+2){
+    width:40%;
+    text-align:left;
+}
+ul.boardList li:nth-child(5n+3){
+    width:20%;
+}
+ul.boardList li:nth-child(5n+4){
+    width:20%;
+}
+ul.boardList li:nth-child(5n){
+    width:10%;
+}
+/*게시글 글내용 스타일*/
+#boardView{
+    width:90%;
+    margin:auto;
+}
+#boardView table{
+    width:100%;
+    max-width:760px;
+    margin:auto;
+    border-collapse: collapse;
+}
+#boardView table td{
+    padding:8px;
+}
+#boardView #content{
+    height:300px;
+}
+#divPasswd{
+    width:70%;
+    margin:auto;
+    padding:8px;
+    text-align:center;
+    margin-top:1em;
+    display:none;
+}
+#divPasswd input{
+    padding:5px;
+}
+#btn1{
+    border:none;
+    background-color:#aD3;
+    padding:5px;
+    border-radius: 5px;
+    width:120px;
+}
+span.new{
+    color:red;
+    font-weight:bold;
+    font-size:0.8em;
+}
+li.title{
+    max-width:40%;
+    overflow:hidden;
+    text-overflow:ellipsis;/*말줄임표(...) 표시*/
+    white-space:nowrap;
+}
+a.active{
+    color:red;
+    font-weight:bold;
+}
+#divFind{
+    width:70%;
+    margin:1em auto;
+    padding:1em;
+}
+#divFind select{
+    padding: 6px;
+}
+#divFind input{
+    padding: 6px;
+    width:50%;
+}
+#divFind .btnSearch{
+    padding: 6px;
+    width:100px;
+    background-color:#cba;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+/*페이징 처리 관련 스타일*/
+/* 기본 페이징 스타일 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* 페이지 항목 스타일 */
+.page-item {
+    list-style: none;
+    margin: 0 1px;
+}
+
+/* 링크 스타일 */
+.page-link {
+    display: block;
+    padding: 3px 8px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 활성화된 페이지 */
+.page-item.active .page-link {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    cursor: default;
+}
+
+/* 마우스 오버 효과 */
+.page-link:hover {
+    background-color: #
+    color: #0056b3;
+    border-color: #dee2e6;
+}
+
+/* 비활성 페이지 항목 */
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
