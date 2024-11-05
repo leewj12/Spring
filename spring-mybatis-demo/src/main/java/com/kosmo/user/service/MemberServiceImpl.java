@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDTO findMemberByUserId(String userId) {
-        return null;
+        return userMapper.findMemberByUserId(userId);
     }
 
     @Override
@@ -74,8 +74,15 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public MemberDTO loginCheck(MemberDTO tmpUser) throws NoMemberException {
-        //if (tmpUser)
-
-        return null;
-    }
+        //userId로 회원정보 가져오기
+        MemberDTO dbUser = this.findMemberByUserId(tmpUser.getUserId());
+        if (dbUser == null){
+            throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않아요!");
+        }
+        if (! dbUser.getUserPw().equals(tmpUser.getUserPw())){
+            //비번이 틀린 경우
+            throw new NoMemberException("아이디 또는 비밀번호가 일치하지 않아요!");
+        }
+        return dbUser;
+    }//-----------------------------------
 }

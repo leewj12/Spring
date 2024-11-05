@@ -30,10 +30,20 @@
         <include refid="all_columns"/>
         from member where idx=#{value}
     </select>
+    <!--  탈퇴회원을 제외한 memverView를 생성하여 로그인 할 때 사용하자
+    ********************************************************
+    create or replace view memberView
+    as
+    select m.*,
+    decode(mstate, 0, '정지회원', 1, '활동회원', 9, '관리자') mstateStr
+    from member m
+    where m.mstate > -1;
+    ********************************************************
+      -->
     <select id="findMemberByUserId" resultType="Member" parameterType="String">
         select
         <include refid="all_columns"/>
-        from member where userId = #{value}
+        from memberView where userId = #{value}
     </select>
 
     <update id="updateMember" parameterType="Member">
